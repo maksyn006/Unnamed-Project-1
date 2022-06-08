@@ -6,3 +6,7 @@ FPS = 60
 # Colors
 WHITE = (255, 255, 255)
 RED = (255, 0, 0)
+
+# dir
+menus_dir = '../menus'
+imgs_dir = '../imgs'
