@@ -3,10 +3,13 @@ WIDTH = 1200
 HEIGHT = 800
 FPS = 60
 
+# Game Params
+
+
 # Colors
 WHITE = (255, 255, 255)
 RED = (255, 0, 0)
 
 # dir
-menus_dir = '../menus'
-imgs_dir = '../imgs'
+imgs_dir = '../imgs/'
+

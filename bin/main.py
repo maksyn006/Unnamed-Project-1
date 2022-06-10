@@ -1,18 +1,20 @@
 from random import randint
+from pygame import *
 
-import pygame
-from settings import *
-pygame.init()
+from bin.settings import *
+init()
 
-sc = pygame.display.set_mode((WIDTH, HEIGHT))
-clock = pygame.time.Clock()
+sc = display.set_mode((WIDTH, HEIGHT))
+clock = time.Clock()
+
 
 is_run = True
 while is_run:
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
+    for e in event.get():
+        if e.type == QUIT:
             is_run = False
     sc.fill(WHITE)
-    pygame.draw.rect(sc, RED, (randint(0, WIDTH), randint(0, HEIGHT), 50, 50))
-    pygame.display.update()
-pygame.quit()
+    draw.rect(sc, RED, (randint(0, WIDTH), randint(0, HEIGHT), 50, 50))
+    display.update()
+    clock.tick(FPS)
+quit()
