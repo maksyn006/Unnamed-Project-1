@@ -1,42 +1,47 @@
-from random import randint
+import sys
+
 from pygame import *
 
+from bin.game import Game
 from bin.settings import *
-from bin.displaymode import *
+
 init()
+font.init()
 
 sc = display.set_mode((WIDTH, HEIGHT))
 clock = time.Clock()
 
+ses_path = ''
+mode = 'game'
 
-def game():
-    if not display_mode['is_game']:
-        return
+
+def game_func(session_path: str):
+    global mode
+    if mode != 'game':
+        return False
+    session = Game(session_path=session_path)
+    while mode == 'game':
+        mode = session.mode
+        session.handle_events()
+        session.update()
+        sc.fill(color=WHITE)
+        session.draw(sc=sc)
+        display.update()
+        clock.tick(FPS)
+    return False
+
+
+def main_menu_func():
+    if mode != 'main_menu':
+        return False
     for e in event.get():
         if e.type == QUIT:
-            set_display_mode_inactive('is_run')
-    sc.fill(WHITE)
-    draw.rect(sc, RED, (randint(0, WIDTH), randint(0, HEIGHT), 50, 50))
-    display.update()
-    clock.tick(FPS)
+            exit()
+    return False
 
 
-def main_menu():
-    if not display_mode['is_main_menu']:
-        return
-    for e in event.get():
-        if e.type == QUIT:
-            set_display_mode_inactive('is_run')
-        if e.type == MOUSEBUTTONDOWN:
-            if 0 < e.pos[0] < 200 and 0 < e.pos[1] < 200:
-                set_display_mode_inactive('is_run')
-    sc.fill(WHITE)
-    draw.rect(sc, GREEN, (randint(0, WIDTH), randint(0, HEIGHT), 50, 50))
-    display.update()
-    clock.tick(FPS)
-
-
-while display_mode['is_run']:
-    game()
-    main_menu()
+while mode != 'exit':
+    game_func(session_path=ses_path)
+    main_menu_func()
+font.quit()
 quit()
